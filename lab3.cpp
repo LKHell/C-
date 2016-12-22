@@ -154,9 +154,13 @@ void display(void)
 
 	glLineWidth((GLfloat)1.0); // back to normal line width 
 	glEnable(GL_LINE_SMOOTH);
-	glFlush(); // drawing the object to screen 	
+	glFlush(); // drawing the object to screen 
+
+
 	
-	
+	
+	
+
 }
 
 // Part 3: init
