@@ -1,5 +1,5 @@
 /*
-	20145975 LiKunhao
+ LiKunhao
 */
 
 #include<GL/glew.h>

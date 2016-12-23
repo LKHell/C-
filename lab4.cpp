@@ -1,4 +1,4 @@
-/* Dr. Yawei Liang, 20140204, 3D Polygon
+/* 
 
 */
 #include<GL/glew.h>

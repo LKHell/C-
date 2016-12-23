@@ -1,4 +1,4 @@
-/* LiKunhao 20145975  */
+/* LiKunhao   */
 
 // Part 1: headers
 #include<GL/glew.h>
