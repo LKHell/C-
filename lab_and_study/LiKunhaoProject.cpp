@@ -11,7 +11,7 @@ LiKunhao 20145975
 // Project:     Home
 // Description: (H) house  - A house should be created and displayed.
 (T) tree- At least one tree should be created and displayed.
-(S) Sun ¨C the sun is a must object.
+(S) Sun C the sun is a must object.
 (E) extra environment object(s) - you can create any other extra object on the piece of land you have.
 (V) viewpoints - your program should enable viewer to view your home with different angles.
 //
@@ -46,8 +46,8 @@ double rotate_x = -10; // Front faces viewer, try a different value, like -10
 
 using std::cout;   // dot.cpp needs this
 
-GLfloat w = 800;  // the size of the screen space, top-right: 800, 600
-GLfloat h = 800;  // bottom-left: 0, 0
+GLfloat w = 900;  // the size of the screen space, top-right: 800, 600
+GLfloat h = 900;  // bottom-left: 0, 0
 
 
 
@@ -62,14 +62,26 @@ void set_display() {
 	glLoadIdentity();
 	glRotatef(rotate_x, 1.0, 0.0, 0.0);
 	glRotatef(rotate_y, 0.0, 1.0, 0.0);
+
 	glScalef(s, s, s);
+	glTranslated(0, 0, 4.0);
 }
 
+void set_display_ground() {
+	glLoadIdentity();
+	glRotatef(rotate_x, 1.0, 0.0, 0.0);
+	glRotatef(rotate_y, 0.0, 1.0, 0.0);
+	//glTranslated(0, 0, 30);
+	glScalef(s, s, s);
+	glTranslated(0, 0, 1.0);
+}
 
 
 void make_GL_QUAD_STRIP(GLfloat a, GLfloat b, GLfloat c)
 {
+	
 	glBegin(GL_QUAD_STRIP);
+	/*glNormal3f(1, 1, -1);*/
 	glColor3f(a, b, c);
 	glVertex3f(1, 0.0, -1);      // P1
 	glVertex3f(1, 1, -1);      // P2 
@@ -79,21 +91,20 @@ void make_GL_QUAD_STRIP(GLfloat a, GLfloat b, GLfloat c)
 	glVertex3f(-1, 1, 1);//p6
 	glVertex3f(1, 0.0, 1);//p7
 	glVertex3f(1, 1, 1);//p8
-	glVertex3f(1, 0.0, -1);      // P9
-	glVertex3f(1, 1, -1);			//p10
+	//glVertex3f(1, 0.0, -1);      // P9
+	//glVertex3f(1, 1, -1);			//p10
 	glEnd();
-
-	//glBegin(GL_QUAD_STRIP);
-	//glColor3f(a, b, c);
-	//glVertex3f(-1, 0, 1);
-	//glVertex3f(-1, 0, -1);
-	//glVertex3f(1, 0, 1);
-	//glVertex3f(1, 0, -1);
-	//glVertex3f(1, 1, 1);
-	//glVertex3f(1, 1, -1);
-	//glVertex3f(-1, 1, 1);
-	//glVertex3f(-1, 1, -1);
-	//glEnd();
+	glBegin(GL_QUAD_STRIP);
+	glColor3f(a, b, c);
+	glVertex3f(-1, 0, 1);
+	glVertex3f(-1, 0, -1);
+	glVertex3f(1, 0, 1);
+	glVertex3f(1, 0, -1);
+	glVertex3f(1, 1, 1);
+	glVertex3f(1, 1, -1);
+	glVertex3f(-1, 1, 1);
+	glVertex3f(-1, 1, -1);
+	glEnd();
 
 }
 
@@ -133,13 +144,128 @@ void make_GL_QUADS_right(GLfloat a, GLfloat b, GLfloat c)
 }
 
 
+void make_tree(GLfloat a, GLfloat b)
+{
+	set_display();
+	//glTranslatef(-6, 1.5, 0.0);
+	glTranslatef(a, 1.5, b);
+	glScalef(1, 1, 1);
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0.3, 0);
+	glVertex3f(0.0f, 2.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd(); //
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0.0f, 2.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd();
+
+	set_display();
+	glTranslatef(a, 0.5, b);
+	glScalef(1, 1, 1);
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0.3, 0);
+	glVertex3f(0.0f, 2.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd();
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN);
+	glVertex3f(0.0f, 2.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd();
+
+
+
+	set_display();
+	glTranslatef(a, -0.2, b);
+	glScalef(0.3, 1.3, 0.3);
+	make_GL_QUAD_STRIP(160 / 255.0, 82 / 255.0, 45 / 255.0);
+}
+void make_grass(GLfloat a, GLfloat b)
+{
+	set_display();
+	//glTranslatef(-6, 1.5, 0.0);
+	glTranslatef(a, 0.2, b);
+	glScalef(0.5, 0.5, 0.5);
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(139 / 255.0, 69 / 255.0, 19 / 255.0);
+	glVertex3f(0.0f, -0.7*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd(); //
+	glTranslatef(0, 0.3, 0);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0.5, 0);
+	glVertex3f(0.0f, -1.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd();
+	//glRotatef(45, 0.0, 1.0, 0.0);
+	glTranslatef(0, 0.4, 0);
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3f(0, 0.5, 0);
+	glVertex3f(0.0f, -1.0*sin(M_PI / 3), 0.0f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd();
+}
+
 void display() {
 	//  Clear screen and Z-buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	// Reset transformations
+	/*------*/
+	//set_display_ground();
+	//GLfloat sun_light_position[] = { 2.0, 2.0f, -2.0f, 1.0f };
+	//GLfloat sun_light_ambient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	//GLfloat sun_light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//GLfloat sun_light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	//glLightfv(GL_LIGHT0, GL_POSITION, sun_light_position); //指定第0号光源的位置   
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, sun_light_ambient); //GL_AMBIENT表示各种光线照射到该材质上，  
+	////经过很多次反射后最终遗留在环境中的光线强度（颜色）  
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, sun_light_diffuse); //漫反射后~~  
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, sun_light_specular);//镜面反射后~~~  
+	//glEnable(GL_COLOR_MATERIAL);
+	//glLightModeli( GL_FRONT, GL_AMBIENT_AND_DIFFUSE );
+	//
+	//glEnable(GL_LIGHT0); //使用第0号光照  
+	//glEnable(GL_LIGHTING); //在后面的渲染中使用光照  
+	/**/
+	
 
 	/*---------------6x6----------------*/
+
 	set_display();
 	glScalef(3, 3, 3);
 	make_GL_QUAD_STRIP(0.118, 0.565, 0.5);
@@ -151,7 +277,7 @@ void display() {
 	glScalef(1, 3, 2);
 	glTranslatef(4.0, 0.0, 0.5);
 
-	make_GL_QUAD_STRIP(1, 0.5, 0.800);
+	make_GL_QUAD_STRIP(0.275, 0.510, 0.706);
 
 	/*-------------2x2---------------------*/
 
@@ -163,7 +289,7 @@ void display() {
 	make_GL_QUAD_STRIP(1.0, 1.0, 1.0);
 
 
-	glTranslatef(0.0, 1.0, 0.0);
+	glTranslatef(0.0, 1.01, 0.0);
 	make_GL_QUADS(0.5, 1.0, 1.0);
 
 
@@ -173,7 +299,7 @@ void display() {
 	set_display();
 	glScalef(4.1, 0.2, 3.1);
 	glTranslatef(0.25, 0.0, 0.0);
-	make_GL_QUAD_STRIP(1.0, 0.5, 1.0);
+	make_GL_QUAD_STRIP(0.5, 0.5, 0.5);
 	/*glTranslatef(0.0, 1.0, 0.0);
 	make_GL_QUADS(0.5, 1.0, 0.3);*/
 
@@ -181,62 +307,82 @@ void display() {
 
 	/*--------------------top---------------*/
 
-	//set_display();
+	set_display();
 
-	//glScalef(4.1, 3, 3.1);
-	//glTranslatef(0.25, 1.0, 0.0);
-	//glRotatef(45, 0.0, 1.0, 0.0);
-	//glBegin(GL_TRIANGLE_FAN); // construct a pyramid
-	//glColor3f(0.4f, 0.5f, 0.5f);    // yellow vertex at the peak
-	//glVertex3f(0.0f, 0.7*sin(M_PI / 3), 0.0f);
-	//// orange vextex
-	//glVertex3f(1.5f, 0.0f, 0.0f);
-	//glVertex3f(0.0f, 0.0f, -1.5f);
-	//glVertex3f(-1.5f, 0.0f, 0.0f);
-	//glVertex3f(0.0f, 0.0f, 1.5f);
-	//glVertex3f(1.5f, 0.0f, 0.0f);
-	//glEnd(); //
+	glScalef(4.1, 3, 3.1);
+	glTranslatef(0.25, 1.0, 0.0);
+	glRotatef(45, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLE_FAN); // construct a pyramid
+	glColor3f(0.5f, 0.5f, 0.5f);    // yellow vertex at the peak
+	glVertex3f(0.0f, 0.7*sin(M_PI / 3), 0.0f);
+	// orange vextex
+	glColor3f(0.4f, 0.5f, 0.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, -1.5f);
+	glVertex3f(-1.5f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 0.0f, 1.5f);
+	glVertex3f(1.5f, 0.0f, 0.0f);
+	glEnd(); //
 
 
 	/*--------------------pillar---------------*/
 
 	set_display();
 	glTranslatef(4.9, 0.0, -2.9);
-	glScalef(0.15, 3, 0.15);
-	make_GL_QUAD_STRIP(1.0, 1.0, 1.0);
+	glScalef(0.12, 3, 0.12);
+	make_GL_QUAD_STRIP(0.118, 0.565, 0.5);
 
 
 	/*--------------------door---------------*/
 
 
 	set_display();
-	glTranslatef(4, 0.0, -1.0);
-	glScalef(0.75, 2.4, 0.15);
-	make_GL_QUAD_STRIP(0, 0, 1);
-
+	glTranslatef(3.25, 0.0, -1.1);
+	glScalef(1.5, 2.5, 0.15);
+	//make_GL_QUAD_STRIP(0, 0, 1);
+	make_GL_QUADS_front(0, 0, 0);
 
 	/*----------door_Vertical--------------*/
 	set_display();
-	glTranslatef(3.7, 0.0, -1.16);
-	glScalef(0.13, 2.4, 1.0);
+	glTranslatef(3.7, 0.0, -1.11);
+	glScalef(0.13, 2.6, 1.0);
 	make_GL_QUADS_front(1.0, 1.0, 1.0);
 	/*----------door_Horizontal-----------------*/
 	set_display();
-	glTranslatef(3.2, 2.0, -1.16);
-	glScalef(1.6, 0.13, 1.0);
+	glTranslatef(3.2, 2.0, -1.11);
+	glScalef(1.5, 0.13, 1.0);
 	make_GL_QUADS_front(1, 1.0, 1);
 	/*-----------door_handle------------------------*/
 	set_display();
-	glTranslatef(4.0, 1.2, -1.18);
+	glTranslatef(4.0, 1.2, -1.11);
 	glScalef(0.1, 0.2, 1.0);
 	make_GL_QUADS_front(1, 0, 1);
+
+	//frame
+	set_display();
+	glTranslatef(3.25, 0.0, -1.1);
+	glScalef(0.1, 5, 0.1);
+	glScalef(0.5, 0.5, 0.5);
+	make_GL_QUAD_STRIP(1.0, 1, 1.0);
+	set_display();
+	glTranslatef(4.7, 0.0, -1.1);
+	glScalef(0.1, 5, 0.1);
+	glScalef(0.5, 0.5, 0.5);
+	make_GL_QUAD_STRIP(1.0, 1, 1.0);
+	set_display();
+	glTranslatef(4.0, 2.5, -1.1);
+	glScalef(1.75, 0.3, 0.1);
+	glScalef(0.5, 0.5, 0.5);
+	make_GL_QUAD_STRIP(1.0, 1, 1.0);
+
+
 	/*-------------window_front--------------------*/
 
 	set_display();
 	glTranslatef(-2.0, 0.5, -3.01);
 	glScalef(3.5, 2.0, 1.0);
 	make_GL_QUADS_front(1, 1.0, 0.5);
-	
+
 	//left
 	set_display();
 	glTranslatef(-1.5, 0.5, -3.02);
@@ -284,7 +430,7 @@ void display() {
 	glTranslatef(5.01, 0.7, 0.0);
 	glScalef(1.0, 1.8, 2.0);
 	make_GL_QUADS_right(1, 1.0, 0.5);
-	
+
 	//mid
 	set_display();
 	glTranslatef(5.02, 1.0, 0.95);
@@ -323,8 +469,90 @@ void display() {
 
 
 
-	/*-----------------------------------*/
+	/*-----------------grass_ground---------------*/
+	set_display_ground();
+	glTranslatef(0, -0.4, 3.0);
+	glScalef(12, 0.4, 8);
+	make_GL_QUAD_STRIP(0.5, 1, 0.5);
 
+
+	/*-----------------road---------------*/
+	set_display_ground();
+	glTranslatef(0, -0.4, -9);
+	glScalef(12, 0.4, 4);
+	make_GL_QUAD_STRIP(0.5, 0.5, 0.5);
+
+	/*-----------------road_mid---------------*/
+	set_display_ground();
+	glTranslatef(0, -0.39, -8.7);
+	glScalef(12, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+	set_display_ground();
+	glTranslatef(0, -0.39, -9.3);
+	glScalef(12, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+
+	set_display_ground();
+	glTranslatef(0, -0.39, -6.9);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+	set_display_ground();
+	glTranslatef(7, -0.39, -6.9);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+
+
+	set_display_ground();
+	glTranslatef(-7, -0.39, -6.9);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+
+
+	//
+	set_display_ground();
+	glTranslatef(0, -0.39, -11.2);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+	set_display_ground();
+	glTranslatef(7, -0.39, -11.2);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+
+
+	set_display_ground();
+	glTranslatef(-7, -0.39, -11.2);
+	glScalef(2, 0.4, 0.15);
+	make_GL_QUAD_STRIP(1, 1, 1);
+
+
+	/*-------------door_to_road---------------*/
+	set_display_ground();
+	glTranslatef(4, -0.39, -1.0);
+	glScalef(1, 0.4, 4);
+	make_GL_QUAD_STRIP(0.855, 0.647, 0.125);
+
+	/*-------------tree-----------------*/
+	make_tree(-6, 3);
+	make_tree(7, 2);
+	make_tree(-7, -3);
+	/*-------------make_grass-------------------*/
+	make_grass(-8, -8);
+	make_grass(-5, -8);
+	make_grass(-11, -8);
+	make_grass(-2, -8);
+	make_grass(1, -8);
+	make_grass(7, -8);
+	make_grass(10, -8);
+
+	/*-------------sun---------------*/
+	glLoadIdentity();
+	glRotatef(rotate_x, 1.0, 0.0, 0.0);
+	glRotatef(rotate_y, 0.0, 1.0, 0.0);
+	glColor3f(1, 0.5, 0);
+	glTranslatef(150, 400, 9);
+	glutSolidSphere(50.0f, 50, 50);
+
+	/*----------------------------*/
 	glFlush();
 	glutSwapBuffers();
 
@@ -367,7 +595,7 @@ void init(void) {
 	//glPointSize(7.0); // 70 pixel dot!
 	glMatrixMode(GL_PROJECTION); // initialize viewing values
 	glLoadIdentity(); //
-	glOrtho(-w / 2, w / 2, -h / 2, h / 2, w / 2, -w / 2); // specify coordinate system
+	glOrtho(-w * 1 / 2, w * 1 / 2, -h / 3, h * 2 / 3, w / 2, -w / 2); // specify coordinate system
 
 
 	//glShadeModel(GL_SMOOTH);
@@ -393,7 +621,7 @@ int main(int argc, char* argv[]) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
 	// Create window
-	glutCreateWindow("house:");
+	glutCreateWindow("LK's home:");
 
 	//  Enable Z-buffer depth test
 	glEnable(GL_DEPTH_TEST);
