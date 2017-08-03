@@ -43,7 +43,7 @@ echo MASK_ = %MASK%
 echo Gateway_ = %GATEWAY%
 netsh interface ipv4 set address %NAME% static %ADDR% %MASK% %GATEWAY% 
 echo DNS1 = %DNS1% 
-netsh interface ipv4 set dns %NAME% static %DNS1%
+netsh interface ipv4 set dns %NAME% static %DNS1% validate=no
 echo DNS2 = %DNS2% 
 if "%DNS2%"=="" (echo DNS2 null) else (netsh interface ipv4 add dns %NAME% %DNS2%) 
 echo done!
