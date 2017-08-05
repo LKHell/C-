@@ -8,7 +8,9 @@ set GATEWAY=10.0.1.2
 set DNS1=10.0.1.2
 set DNS2=
 rem //以上属性依次为IP地址、子网掩码、网关、首选DNS、备用DNS
+REM show ip
 
+ipconfig
 
 echo now you can_set:
 echo 1 mobile
